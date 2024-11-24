@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_car_app/providers/car_provider.dart';
 import '../models/car_model.dart';
 
 class CarGridTile extends StatelessWidget {
@@ -9,6 +11,7 @@ class CarGridTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('CarGridTile Build()');
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
@@ -21,11 +24,16 @@ class CarGridTile extends StatelessWidget {
         ),
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          trailing: IconButton(
-            onPressed: () {},
-            icon: Icon(car.isFavorite ? Icons.favorite : Icons.favorite_border),
-            color: Colors.red,
-          ),
+          trailing: Consumer<CarProvider>(builder: (ctx, cp, _) {
+            return IconButton(
+              onPressed: () {
+                cp.toggleFavorite(car.id);
+              },
+              icon:
+                  Icon(car.isFavorite ? Icons.favorite : Icons.favorite_border),
+              color: Colors.red,
+            );
+          }),
           title: Text(
             car.brand,
             textAlign: TextAlign.center,

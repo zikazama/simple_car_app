@@ -8,7 +8,8 @@ class CarsOverViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final carProvider = Provider.of<CarProvider>(context);
+    print('CarOverviewScreen Build()');
+    final carProvider = Provider.of<CarProvider>(context, listen: false);
     final loadedCarDatas = carProvider.cars;
 
     // TODO: implement build
